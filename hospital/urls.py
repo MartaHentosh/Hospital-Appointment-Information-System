@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from hospital import views
 from django.contrib.auth import views as auth_views
-from django.conf.urls import include, url
 
 urlpatterns = [
     path('',views.home_view,name=''),
@@ -76,8 +75,8 @@ urlpatterns = [
     path('opcost',views.opcost_adm_view,name='opcost.html'),
     path('med_track/<str:name>',views.track_med_view,name='particular_medtrack.html'), 
     path('covidvaccine',views.covid_vaccine_adm_view,name='covid_vaccine_adm.html'), 
-    path('downloadreport/<int:pk>',views.render_pdf_report_view,name="downloadreport"),
-    path('downloadbill/<int:pk>',views.render_pdf_bill_view,name="downloadbill"), 
-    path('downloadreport_apt/<int:pk>',views.render_pdf_report_apt_view,name="downloadreport_apt"),
-    path('downloadbill_apt/<int:pk>',views.render_pdf_bill_apt_view,name="downloadbill_apt"),       
+    #path('downloadreport/<int:pk>',views.render_pdf_report_view,name="downloadreport"),
+    #path('downloadbill/<int:pk>',views.render_pdf_bill_view,name="downloadbill"),
+    #path('downloadreport_apt/<int:pk>',views.render_pdf_report_apt_view,name="downloadreport_apt"),
+    #path('downloadbill_apt/<int:pk>',views.render_pdf_bill_apt_view,name="downloadbill_apt"),
 ]

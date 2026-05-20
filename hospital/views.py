@@ -15,7 +15,7 @@ from django.http import HttpResponseRedirect
 ## For Invoice Function
 from django.http import HttpResponse
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+#from xhtml2pdf import pisa
 
 #Admin Related Views
 @login_required(login_url='login_adm.html')     #if user is not logged in, redirect to login page
@@ -217,12 +217,10 @@ def register_adm_view(request):
         if form.is_valid():     #get data from form (if it is valid)
             db = form.cleaned_data.get('dob')   #get date of birth from form
             today = date.today()
-            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))    #calculate age from dob
             if db < timezone.now().date():  #check if date of birth is valid (happened the previous day or even back)
                 nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))  #create user
                 adm = Admin(user=nu,firstname=form.cleaned_data.get('firstname'),
                             lastname=form.cleaned_data.get('lastname'),
-                            age=ag,
                             dob=form.cleaned_data.get('dob'),
                             address=form.cleaned_data.get('address'),
                             city=form.cleaned_data.get('city'),
@@ -740,7 +738,6 @@ def profile_pat_view(request):
                 ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
                 if db < timezone.now().date():  #if date of birth is valid
                     p_form.save()   #save details
-                    pat.age=ag      #save age
                     pat.save()
                     return redirect('profile_pat.html')
                 else:
@@ -748,7 +745,6 @@ def profile_pat_view(request):
                     context = {
                         'p_form': p_form,
                         'pat': pat,
-                        'age': ag
                     }
                     return render(request,'hospital/Patient/profile_pat.html',context)
             else:
@@ -757,7 +753,6 @@ def profile_pat_view(request):
         context = {
             'p_form': p_form,
             'pat': pat,
-            'age':ag
         }
         
         return render(request,'hospital/Patient/profile_pat.html',context)
@@ -1363,7 +1358,7 @@ def check_patient(user):#check if user is patient
 
 
 
-def render_pdf_report_view(request,pk):
+# def render_pdf_report_view(request,pk):
     #get information from database
     template_path = 'hospital/report_pdf.html'
     padm=PatAdmit.objects.all().filter(id=pk).first()
@@ -1407,7 +1402,7 @@ def render_pdf_report_view(request,pk):
     return response
 
 
-def render_pdf_bill_view(request,pk):
+# def render_pdf_bill_view(request,pk):
     #get information from database
     template_path = 'hospital/bill_pdf.html'
     padm=PatAdmit.objects.all().filter(id=pk).first()
@@ -1471,7 +1466,7 @@ def render_pdf_bill_view(request,pk):
 
 ######apt
 
-def render_pdf_report_apt_view(request,pk):
+# def render_pdf_report_apt_view(request,pk):
     #get information from database
     template_path = 'hospital/report_apt_pdf.html'
     apt=Appointment.objects.all().filter(id=pk).first()
@@ -1510,7 +1505,7 @@ def render_pdf_report_apt_view(request,pk):
     return response
 
 
-def render_pdf_bill_apt_view(request,pk):
+# def render_pdf_bill_apt_view(request,pk):
     #get information from database
     template_path = 'hospital/bill_apt_pdf.html'
     apt=Appointment.objects.all().filter(id=pk).first()

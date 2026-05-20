@@ -1,0 +1,10 @@
+#Pycharm folders
+.idea/
+
+#Old DB
+db.sqlite3
+
+#Python files
+*.pyc
+__pycache__/
+.env
