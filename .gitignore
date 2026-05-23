@@ -8,3 +8,7 @@ db.sqlite3
 *.pyc
 __pycache__/
 .env
+
+#Secret files
+k8/app/secret.yaml
+k8/postgres/secret.yaml

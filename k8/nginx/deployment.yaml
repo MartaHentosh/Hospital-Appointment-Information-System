@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: hospital
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d
+              name: nginx-config
+            - mountPath: /app/staticfiles
+              name: static-storage
+            - mountPath: /app/media
+              name: media-storage
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+        - name: static-storage
+          persistentVolumeClaim:
+            claimName: static-pvc
+        - name: media-storage
+          persistentVolumeClaim:
+            claimName: media-pvc
