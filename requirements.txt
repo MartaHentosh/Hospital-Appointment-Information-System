@@ -1,0 +1,20 @@
+Django>=3.1.5
+asgiref
+sqlparse
+pytz
+
+# Database
+psycopg2-binary==2.9.9
+
+# Forms та UI
+django-crispy-forms
+django-widget-tweaks
+django-bootstrap-modal-forms
+
+# Утиліти
+requests
+six
+Pillow
+
+# Server
+gunicorn==21.2.0

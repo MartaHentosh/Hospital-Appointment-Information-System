@@ -1,0 +1,14 @@
+#Pycharm folders
+.idea/
+
+#Old DB
+db.sqlite3
+
+#Python files
+*.pyc
+__pycache__/
+.env
+
+#Secret files
+k8/app/secret.yaml
+k8/postgres/secret.yaml
