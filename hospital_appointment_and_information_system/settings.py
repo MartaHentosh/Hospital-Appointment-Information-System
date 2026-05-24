@@ -26,7 +26,15 @@ SECRET_KEY = 'd&d%!!iph5fs6i8tmm!2=o=p4zi8fuw67@(&vlf3$(olghu#3h'
 DEBUG = True
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS','').split(',')
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get(
+        "CSRF_TRUSTED_ORIGINS",
+        ""
+    ).split(",")
+    if origin.strip()
+]
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
