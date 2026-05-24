@@ -10,4 +10,4 @@ data:
   DB_USER: hospital_user
   DEBUG: "False"
   ALLOWED_HOSTS: "*"
-  CSRF_TRUSTED_ORIGINS: "http://13.48.214.136:30080,http://13.48.214.136"
+  CSRF_TRUSTED_ORIGINS: "http://13.48.214.136:30080"
