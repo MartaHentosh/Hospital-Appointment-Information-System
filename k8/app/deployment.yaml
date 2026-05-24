@@ -54,6 +54,11 @@ spec:
                 secretKeyRef:
                   name: app-secret
                   key: SECRET_KEY
+            - name: CSRF_TRUSTED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CSRF_TRUSTED_ORIGINS
           volumeMounts:
             - mountPath: /app/media
               name: media-storage
