@@ -16,6 +16,7 @@ spec:
       containers:
         - name: hospital-app
           image: ghcr.io/martahentosh/hospital-web:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
