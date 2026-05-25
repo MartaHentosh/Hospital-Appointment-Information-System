@@ -12,3 +12,4 @@ __pycache__/
 #Secret files
 k8/app/secret.yaml
 k8/postgres/secret.yaml
+k8/monitoring/grafana/secret.yaml
