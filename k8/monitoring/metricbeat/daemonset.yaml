@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: metricbeat
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: metricbeat
+  template:
+    metadata:
+      labels:
+        app: metricbeat
+    spec:
+      serviceAccountName: metricbeat
+      containers:
+        - name: metricbeat
+          image: docker.elastic.co/beats/metricbeat:8.12.0
+          args: ["-c", "/etc/metricbeat.yml", "-e", "--strict.perms=false"]
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "100m"
+            limits:
+              memory: "400Mi"
+              cpu: "200m"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/metricbeat.yml
+              subPath: metricbeat.yml
+            - name: proc
+              mountPath: /hostfs/proc
+              readOnly: true
+            - name: cgroup
+              mountPath: /hostfs/sys/fs/cgroup
+              readOnly: true
+          securityContext:
+            runAsUser: 0
+      volumes:
+        - name: config
+          configMap:
+            name: metricbeat-config
+        - name: proc
+          hostPath:
+            path: /proc
+        - name: cgroup
+          hostPath:
+            path: /sys/fs/cgroup
